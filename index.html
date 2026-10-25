@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Registro de Trabajador Social">
+    <title>Registro de Trabajador Social</title>
+
+    <style>
+        :root {
+            --primary-color: #10b981;
+            --primary-hover: #059669;
+            --secondary-color: #374151;
+            --background-color: #f3f4f6;
+            --card-background: #ffffff;
+            --border-color: #d1d5db;
+            --text-color: #1f2937;
+            --focus-shadow: rgba(16, 185, 129, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-background);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-hover);
+            margin: 0 0 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .form-description {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            font-size: 1.05rem;
+            color: var(--secondary-color);
+            margin-bottom: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            display: block;
+            width: 100%;
+            padding: 11px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: #fff;
+            color: var(--text-color);
+            font: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--focus-shadow);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            background: #f9fafb;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            margin: 0;
+            accent-color: var(--primary-color);
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 13px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        .mensaje {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .mensaje:empty {
+            display: none;
+        }
+
+        .mensaje.exito {
+            background-color: #d1fae5;
+            color: #047857;
+            border: 1px solid #6ee7b7;
+        }
+
+        .mensaje.error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fca5a5;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .form-container {
+                padding: 22px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+<link type="text/css" rel="stylesheet" href="css/style.css"/>
+</head>
+
+<body>
+
+    <main class="form-container">
+
+        <h1>Registro de Trabajador Social</h1>
+
+        <p class="form-description">
+            Complete sus datos personales y profesionales para registrar su perfil.
+        </p>
+
+        <form id="registro-form">
+
+            <!-- 1. INFORMACIÓN PERSONAL -->
+            <section class="form-section">
+
+                <div class="section-title">
+                    1. Información Personal
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre(s):</label>
+
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            required
+                            placeholder="Ingrese sus nombres"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+
+                        <input
+                            type="text"
+                            id="apellidos"
+                            name="apellidos"
+                            required
+                            placeholder="Ingrese sus apellidos"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico:</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            placeholder="correo@ejemplo.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono de Contacto:</label>
+
+                        <input
+                            type="tel"
+                            id="telefono"
+                            name="telefono"
+                            required
+                            placeholder="+502 2345-2347"
+                        >
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- 2. PERFIL PROFESIONAL -->
+            <section class="form-section">
+
+                <div class="section-title">
+                    2. Perfil Profesional
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="colegiado">
+                            No. de Colegiado / Licencia:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="colegiado"
+                            name="colegiado"
+                            required
+                            placeholder="Ej. TS-98765"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="experiencia">
+                            Años de Experiencia:
+                        </label>
+
+                        <select
+                            id="experiencia"
+                            name="experiencia"
+                            required
+                        >
+
+                            <option value="" disabled selected>
+                                Seleccione una opción
+                            </option>
+
+                            <option value="0-2">
+                                De 0 a 2 años
+                            </option>
+
+                            <option value="3-5">
+                                De 3 a 5 años
+                            </option>
+
+                            <option value="6-10">
+                                De 6 a 10 años
+                            </option>
+
+                            <option value="11+">
+                                11 años o más
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- 3. ÁREAS DE ESPECIALIZACIÓN -->
+            <section class="form-section">
+
+                <div class="section-title">
+                    3. Áreas de Interés / Especialidad
+                </div>
+
+                <p>
+                    Seleccione los sectores en los que tiene experiencia:
+                </p>
+
+                <div class="checkbox-group">
+
+                    <div class="checkbox-item">
+                        <input
+                            type="checkbox"
+                            id="esp1"
+                            name="especialidad"
+                            value="infancia"
+                        >
+
+                        <label for="esp1">
+                            Infancia y Familia
+                        </label>
+                    </div>
+
+
+                    <div class="checkbox-item">
+                        <input
+                            type="checkbox"
+                            id="esp2"
+                            name="especialidad"
+                            value="tercera-edad"
+                        >
+
+                        <label for="esp2">
+                            Tercera Edad
+                        </label>
+                    </div>
+
+
+                    <div class="checkbox-item">
+                        <input
+                            type="checkbox"
+                            id="esp3"
+                            name="especialidad"
+                            value="salud-mental"
+                        >
+
+                        <label for="esp3">
+                            Salud Mental
+                        </label>
+                    </div>
+
+
+                    <div class="checkbox-item">
+                        <input
+                            type="checkbox"
+                            id="esp4"
+                            name="especialidad"
+                            value="violencia-genero"
+                        >
+
+                        <label for="esp4">
+                            Violencia de Género
+                        </label>
+                    </div>
+
+
+                    <div class="checkbox-item">
+                        <input
+                            type="checkbox"
+                            id="esp5"
+                            name="especialidad"
+                            value="exclusion"
+                        >
+
+                        <label for="esp5">
+                            Exclusión Social
+                        </label>
+                    </div>
+
+
+                    <div class="checkbox-item">
+                        <input
+                            type="checkbox"
+                            id="esp6"
+                            name="especialidad"
+                            value="migraciones"
+                        >
+
+                        <label for="esp6">
+                            Migraciones y Refugio
+                        </label>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- 4. INFORMACIÓN ADICIONAL -->
+            <section class="form-section">
+
+                <div class="section-title">
+                    4. Información Adicional
+                </div>
+
+                <div class="form-group">
+
+                    <label for="biografia">
+                        Breve descripción de su enfoque de intervención social:
+                    </label>
+
+                    <textarea
+                        id="biografia"
+                        name="biografia"
+                        placeholder="Cuéntanos brevemente sobre tu metodología o motivación profesional..."
+                    ></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- BOTÓN -->
+            <button
+                type="submit"
+                class="btn-submit"
+            >
+                Registrar Perfil Profesional
+            </button>
+
+
+            <!-- MENSAJE -->
+            <div
+                id="mensaje"
+                class="mensaje"
+                role="status"
+                aria-live="polite"
+            ></div>
+
+        </form>
+
+    </main>
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const form = document.getElementById("registro-form");
+            const mensaje = document.getElementById("mensaje");
+            const boton = form.querySelector(".btn-submit");
+
+
+            form.addEventListener("submit", async (event) => {
+
+                event.preventDefault();
+
+
+                // Validar formulario
+                if (!form.checkValidity()) {
+
+                    form.reportValidity();
+
+                    return;
+                }
+
+
+                // Obtener especialidades seleccionadas
+                const especialidades = [];
+
+                document
+                    .querySelectorAll(
+                        'input[name="especialidad"]:checked'
+                    )
+                    .forEach((checkbox) => {
+
+                        especialidades.push(checkbox.value);
+
+                    });
+
+
+                // Crear objeto con todos los datos
+                const formData = {
+
+                    nombre:
+                        document
+                            .getElementById("nombre")
+                            .value
+                            .trim(),
+
+                    apellidos:
+                        document
+                            .getElementById("apellidos")
+                            .value
+                            .trim(),
+
+                    email:
+                        document
+                            .getElementById("email")
+                            .value
+                            .trim(),
+
+                    telefono:
+                        document
+                            .getElementById("telefono")
+                            .value
+                            .trim(),
+
+                    colegiado:
+                        document
+                            .getElementById("colegiado")
+                            .value
+                            .trim(),
+
+                    experiencia:
+                        document
+                            .getElementById("experiencia")
+                            .value,
+
+                    especialidades:
+                        especialidades,
+
+                    biografia:
+                        document
+                            .getElementById("biografia")
+                            .value
+                            .trim()
+
+                };
+
+
+                // Estado de carga
+                boton.disabled = true;
+
+                boton.textContent = "Registrando...";
+
+                mensaje.textContent = "";
+
+                mensaje.className = "mensaje";
+
+
+                try {
+
+                    // Enviar información al backend
+                    const response = await fetch(
+                        "http://localhost:3000/api/trabajadores",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify(formData)
+                        }
+                    );
+
+
+                    // Intentar obtener respuesta JSON
+                    const result = await response
+                        .json()
+                        .catch(() => ({}));
+
+
+                    // Comprobar respuesta
+                    if (!response.ok) {
+
+                        throw new Error(
+                            result.error ||
+                            "No se pudo registrar el trabajador social."
+                        );
+
+                    }
+
+
+                    // Mostrar éxito
+                    mensaje.textContent =
+                        result.message ||
+                        "¡Trabajador Social registrado con éxito!";
+
+                    mensaje.className =
+                        "mensaje exito";
+
+
+                    // Limpiar formulario
+                    form.reset();
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Error al registrar:",
+                        error
+                    );
+
+
+                    // Mostrar error
+                    if (error.message === "Failed to fetch") {
+
+                        mensaje.textContent =
+                            "No se pudo conectar con el servidor. " +
+                            "Verifique que el backend esté funcionando.";
+
+                    } else {
+
+                        mensaje.textContent =
+                            error.message ||
+                            "Ocurrió un error inesperado.";
+
+                    }
+
+
+                    mensaje.className =
+                        "mensaje error";
+
+
+                } finally {
+
+                    // Restaurar botón
+                    boton.disabled = false;
+
+                    boton.textContent =
+                        "Registrar Perfil Profesional";
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
